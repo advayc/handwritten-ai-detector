@@ -1,0 +1,83 @@
+
+.app {
+  min-height: 100vh;
+  background: var(--gradient);
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.upload-file {
+  width: 60vw;
+  height: 3rem;
+  background-color: #fff3;
+  border-radius: 4rem;
+  padding: 0 1.4rem;
+}
+
+.result {
+  margin-top: 2rem;
+  width: 60vw;
+  height: 22rem;
+}
+
+.result #img-result,
+.result textarea {
+  height: 100%;
+  border-radius: 1rem;
+}
+
+.result #img-result {
+  max-width: 55%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+.result div {
+  position: relative;
+  width: 40%;
+  height: 100%;
+}
+
+.result div p {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  opacity: 0;
+}
+
+.result textarea {
+  width: 100%;
+  padding: 1.5rem;
+  background-color: transparent;
+  color: #fff;
+  font: 500 1.2rem sans-serif;
+  border: 2px solid #4E21B7;
+  resize: none;
+  outline: none;
+}
+
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+#img-url {
+  height: 3rem;
+  width: 3rem;
+}
