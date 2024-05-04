@@ -4,11 +4,8 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Tesseract from "tesseract.js";
 import { useEffect } from 'react';
-
-
 import AOS from 'aos';
-import 'aos/dist/aos.css'; // You can also load CSS from the node_modules
-
+import 'aos/dist/aos.css'; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -93,6 +90,7 @@ export default function Home() {
           <section className={`${styles["upload-file"]} ${styles["flex-between"]}`}>
             <input
               type="text"
+              className={styles.button}
               placeholder="Enter URL of image"
               id="img-url"
               value={imgUrl}
@@ -100,10 +98,7 @@ export default function Home() {
             />
             <input
               type="file"
-              className="upload"
-              placeholder='upload image'
-              id="upload-file-btn"
-              onChange={handleFileChange}
+              className={styles.button}
             />  
             <button onClick={handleConvertText} className= {styles.button}>Convert Text</button>
             <button onClick={handleRotateImage} className= {styles.button} >Rotate</button>
