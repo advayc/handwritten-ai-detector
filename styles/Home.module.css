@@ -1,4 +1,3 @@
-
 .app {
   min-height: 100vh;
   background: var(--gradient);
@@ -67,17 +66,17 @@
   outline: none;
 }
 
-
 .main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 2rem;
   min-height: 100vh;
 }
 
-#img-url {
-  height: 3rem;
-  width: 3rem;
+
+.converted-text-container textarea {
+  flex-grow: 1;
+  margin-top: 1rem;
 }

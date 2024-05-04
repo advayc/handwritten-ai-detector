@@ -21,23 +21,23 @@ export default function Home() {
       setImgUrl(reader.result);
     };
     reader.readAsDataURL(file);
-    recognizeText(file);
   };
 
-  const handleCopyText = () => {
-    if (convertedText !== "") {
-      navigator.clipboard.writeText(convertedText);
-      // Add feedback for user, if needed
+  const recognizeText = async (file) => {
+    try {
+      const { data: { text } } = await Tesseract.recognize(file, 'eng');
+      setConvertedText(text);
+    } catch (error) {
+      console.error(error);
     }
   };
 
-  const recognizeText = (file) => {
-    Tesseract.recognize(file)
-      .then((result) => {
-        setConvertedText(result.text);
-      })
-      .catch((error) => console.error(error));
+  const handleConvertText = () => {
+    if (imgUrl !== "") {
+      recognizeText(imgUrl);
+    }
   };
+  console.log(convertedText);
 
   return (
     <>
@@ -48,9 +48,9 @@ export default function Home() {
           content="Convert image to editable text using JavaScript"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+          <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.app}>
           <header>
@@ -64,21 +64,22 @@ export default function Home() {
               value={imgUrl}
               onChange={handleImgUrlChange}
             />
-              <input
-                type="file"
-                className="upload"
-                placeholder='upload image'
-                id="upload-file-btn"
-                onChange={handleFileChange}
-              />
+            <input
+              type="file"
+              className="upload"
+              placeholder='upload image'
+              id="upload-file-btn"
+              onChange={handleFileChange}
+            />
+            <button onClick={handleConvertText}>Convert Text</button>
           </section>
           <section className={`${styles.result} ${styles["flex-between"]}`}>
-            <img src={imgUrl} alt="" id="img-result" />
-            <div>
+            {imgUrl && <img src={imgUrl} alt="" id="img-result" />}
+            <div className={styles["converted-text-container"]}>
               <textarea
                 id="converted-text"
                 placeholder="Converted text of image"
-                value={convertedText}
+                value={convertedText || ""}
                 readOnly
               ></textarea>
             </div>
