@@ -72,7 +72,7 @@ export default function Home() {
   const sendTextToDetectorAPI = async (text) => {
     try {
       const apiUrl = "https://www.freedetector.ai/api/content_detector/"; // replace with the actual API URL
-      const token = process.env.TOKEN; // replace with the actual token
+      const token = TOKEN; // replace with the actual token
   
       const requestBody = {
         text: text,
@@ -135,7 +135,7 @@ export default function Home() {
             <button onClick={handleRotateImage} className= {styles.button} >Rotate</button>
           </section>
           <section className={`${styles.result} ${styles["flex-between"]}`}>
-            {imgUrl && <img src={imgUrl} alt="" id="img-result" ref={imgRef} width={650} height={350}/>}
+          {imgUrl && <img src={imgUrl} alt="" id="img-result" ref={imgRef} style={{maxWidth: '100%', maxHeight: '100%'}} />}
             <div className={styles["converted-text-container"]}>
               <textarea
                 id="converted-text"
@@ -146,7 +146,7 @@ export default function Home() {
             </div>
           </section>
         </div>
-        <h2 className={styles["resullts"]} >Result 0% AI Generated</h2>
+        <h2 className={styles["AI-resullts"]} >Result 0% AI Generated</h2>
         
 
       </main>
