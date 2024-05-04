@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [imgUrl, setImgUrl] = useState("");
   const [convertedText, setConvertedText] = useState("");
+  const imgRef = useRef(null);
 
   const handleImgUrlChange = (e) => {
     setImgUrl(e.target.value);
@@ -37,7 +38,28 @@ export default function Home() {
       recognizeText(imgUrl);
     }
   };
-  console.log(convertedText);
+
+  const handleRotateImage = () => {
+    if (imgRef.current) {
+      const rotatedImage = rotateImage(imgRef.current, 90);
+      setImgUrl(rotatedImage);
+    }
+  };
+
+  const rotateImage = (img, angle) => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const { width, height } = img;
+
+    canvas.width = height;
+    canvas.height = width;
+
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.rotate((angle * Math.PI) / 180);
+    ctx.drawImage(img, -width / 2, -height / 2);
+
+    return canvas.toDataURL("image/jpeg");
+  };
 
   return (
     <>
@@ -48,9 +70,9 @@ export default function Home() {
           content="Convert image to editable text using JavaScript"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+        <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.app}>
           <header>
@@ -72,9 +94,10 @@ export default function Home() {
               onChange={handleFileChange}
             />
             <button onClick={handleConvertText}>Convert Text</button>
+            <button onClick={handleRotateImage}>Rotate</button>
           </section>
           <section className={`${styles.result} ${styles["flex-between"]}`}>
-            {imgUrl && <img src={imgUrl} alt="" id="img-result" />}
+            {imgUrl && <img src={imgUrl} alt="" id="img-result" ref={imgRef} />}
             <div className={styles["converted-text-container"]}>
               <textarea
                 id="converted-text"
