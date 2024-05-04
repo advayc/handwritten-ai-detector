@@ -1,5 +1,5 @@
 .app {
-  min-height: 100vh;
+  min-height: 100 vh;
   background: var(--gradient);
   color: #fff;
 
@@ -15,24 +15,76 @@
   align-items: center;
 }
 
+
 .upload-file {
   width: 60vw;
-  height: 3rem;
-  background-color: #fff3;
-  border-radius: 4rem;
+  height: 4rem;
+  background-color: white;
   padding: 0 1.4rem;
+  border-radius: 10px;
 }
+.button {
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395A;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.button:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+
+
+
 
 .result {
   margin-top: 2rem;
-  width: 60vw;
+  width: 100%;
   height: 22rem;
+  
 }
 
 .result #img-result,
+
 .result textarea {
   height: 100%;
   border-radius: 1rem;
+  width: 100%;
 }
 
 .result #img-result {
@@ -79,4 +131,7 @@
 .converted-text-container textarea {
   flex-grow: 1;
   margin-top: 1rem;
+}
+.title-header {
+  padding-bottom: 10px;
 }
