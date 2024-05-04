@@ -50,7 +50,7 @@ export default function Home() {
     if (imgUrl !== "") {
       recognizeText(imgUrl);
     }
-    setScore(Math.floor(Math.random() * 100) + 1);
+    setScore(Math.floor(Math.random() * 68) + 1);
   };
 
   const handleRotateImage = () => {
