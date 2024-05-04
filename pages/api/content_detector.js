@@ -30,11 +30,12 @@ const sendTextToDetectorAPI = async (convertedText) => {
     console.error('Error sending text to AI Detector API:', error);
   }
 };
-const handleConvertText = () => {
-  if (imgUrl !== "") {
-    recognizeText(imgUrl); // Assuming this function sets convertedText state
-  }
-};
+const handleConvertText = async () => {
+    if (imgUrl !== "") {
+      await recognizeText(imgUrl);
+      sendTextToDetectorAPI(convertedText);
+    }
+  };
 
 // Call the function to send convertedText to the API
 sendTextToDetectorAPI(convertedText);
