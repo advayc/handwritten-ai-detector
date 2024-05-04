@@ -1,13 +1,16 @@
 import styles from "@/styles/Landing.module.css";
 import React from 'react'
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
+//Landing Styling 
 const Landing = () => {
   return (
-      <main className={`${styles["main-title-container"]} ${inter.className}`}>
+      <main className={`${styles["main-title-container"]}  ${inter.className}`} data-aos="zoom-out" data-aos-easing="ease-out-cubic" data-aos-duration="1000"  data-aos-delay="0">
      
      <div className={`${styles["left-card"]}`}>
      <h3 className={`${styles["main-subtitle"]}`}>Welcome to</h3> 

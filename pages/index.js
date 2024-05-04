@@ -6,6 +6,7 @@ import Tesseract from "tesseract.js";
 import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
+import axios from 'axios'; // Import Axios for making HTTP requests
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,6 +44,7 @@ export default function Home() {
   const handleConvertText = () => {
     if (imgUrl !== "") {
       recognizeText(imgUrl);
+      sendTextToDetectorAPI(convertedText); // Call function to send text to AI Detector API
     }
   };
 
@@ -66,6 +68,44 @@ export default function Home() {
     return canvas.toDataURL("image/jpeg");
   };
 
+  // Function to send convertedText to the AI Detector API
+  const axios = require('axios');
+
+  const sendTextToDetectorAPI = async (convertedText) => {
+      try {
+          // API endpoint URL
+          const apiUrl = 'https://www.freedetector.ai/api/content_detector/';
+  
+          const token = 'YOUR-TOKEN'; // Replace 'YOUR-TOKEN' with your actual token
+  
+          // Request body containing the text to be analyzed
+          const requestBody = {
+              text: convertedText,
+          };
+  
+          // Making POST request to the API
+          const response = await axios.post(apiUrl, requestBody, {
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+              }
+          });
+  
+          // Handle API response
+          if (response.data.success) {
+              console.log('Content analysis score:', response.data.score);
+              // You can further process the response here based on your requirements
+          } else {
+              console.error('API call failed:', response.data.message);
+          }
+      } catch (error) {
+          console.error('Error sending text to AI Detector API:', error);
+      }
+  };
+  
+  // Example usage:
+  sendTextToDetectorAPI("By ensuring that human beings make all content, businesses can enhance the authenticity of their content and build trust with their audience.");
+    //MODEL STYLING 
   return (
     <>
       <Head>
@@ -78,10 +118,7 @@ export default function Home() {
         <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main data-aos="zoom-out"
-  data-aos-easing="ease-out-cubic"
-  data-aos-duration="1000"
-  data-aos-delay="0" className={`${styles.main} ${inter.className}`}>
+      <main data-aos="zoom-out" data-aos-easing="ease-out-cubic" data-aos-duration="1000"  data-aos-delay="0" className={`${styles.main} ${inter.className}`}>
         <div className={styles.app}>
           <header>
             <h1   className={`${styles["title-header"]}`}>Convert image to Editable Text</h1>
