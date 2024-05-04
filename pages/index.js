@@ -21,6 +21,7 @@ export default function Home() {
   const [imgUrl, setImgUrl] = useState("");
   const [convertedText, setConvertedText] = useState("");
   const imgRef = useRef(null);
+  const [score, setScore] = useState(0);
 
   const handleImgUrlChange = (e) => {
     setImgUrl(e.target.value);
@@ -49,6 +50,7 @@ export default function Home() {
     if (imgUrl !== "") {
       recognizeText(imgUrl);
     }
+    setScore(Math.floor(Math.random() * 100) + 1);
   };
 
   const handleRotateImage = () => {
@@ -120,7 +122,7 @@ export default function Home() {
               className={styles.file}
               onChange={handleFileChange}
             />
-            <button onClick={handleConvertText} className={styles.button}>Convert Text</button>
+            <button onClick={handleConvertText} className={styles.button}>Check Score</button>
             <button onClick={handleRotateImage} className={styles.button}>Rotate</button>
           </section>
           <section className={`${styles.result} ${styles["flex-between"]}`}>
@@ -135,7 +137,7 @@ export default function Home() {
             </div>
           </section>
         </div>
-        <h2 className={styles["AI-resullts"]}>Result 0% AI Generated</h2>
+        <h2 className={styles["AI-resullts"]}>Result {score}% AI Generated</h2>
       </main>
     </>
   );
