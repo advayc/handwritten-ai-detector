@@ -126,7 +126,7 @@ export default function Home() {
             <button onClick={handleRotateImage} className={styles.button}>Rotate</button>
           </section>
           <section className={`${styles.result} ${styles["flex-between"]}`}>
-            {imgUrl && <img src={imgUrl} alt="" id="img-result" ref={imgRef} style={{ maxWidth: '600px', maxHeight: '500px' }} />}
+            {imgUrl && <img src={imgUrl} alt="" id="img-result" ref={imgRef} style={{ maxWidth: '600px', maxHeight: '400px' }} />}
             <div className={styles["converted-text-container"]}>
               <textarea
                 id="converted-text"
