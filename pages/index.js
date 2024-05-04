@@ -1,3 +1,5 @@
+// pages/index.js
+
 import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 import { Inter } from "next/font/google";
@@ -7,7 +9,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import axios from 'axios';
 import Image from "next/head";
-import the_imgae from "/public/logo.webp"
+import the_image from "/public/logo.webp"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +21,6 @@ export default function Home() {
   const [imgUrl, setImgUrl] = useState("");
   const [convertedText, setConvertedText] = useState("");
   const imgRef = useRef(null);
-
-
 
   const handleImgUrlChange = (e) => {
     setImgUrl(e.target.value);
@@ -39,6 +39,7 @@ export default function Home() {
     try {
       const { data: { text } } = await Tesseract.recognize(file, 'eng');
       setConvertedText(text);
+      sendTextToDetectorAPI(text);
     } catch (error) {
       console.error(error);
     }
@@ -69,21 +70,11 @@ export default function Home() {
 
     return canvas.toDataURL("image/jpeg");
   };
+
   const sendTextToDetectorAPI = async (text) => {
     try {
-      const apiUrl = "https://www.freedetector.ai/api/content_detector/"; // replace with the actual API URL
-      const token = TOKEN; // replace with the actual token
-  
-      const requestBody = {
-        text: text,
-      };
-  
-      const response = await axios.post(apiUrl, requestBody, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      const apiUrl = "/api/textDetector"; // Changed to local API route
+      const response = await axios.post(apiUrl, { text });
   
       if (response.data.success) {
         console.log('Human-written score:', response.data.score);
@@ -94,8 +85,7 @@ export default function Home() {
       console.error('Error sending text to AI Detector API:', error);
     }
   };
-  const rez = ' AI Generated Text';
-  const rez2 = '0% AI Generated Text';
+
   return (
     <>
       <Head>
@@ -109,13 +99,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header>
-      <Image src={the_imgae} alt="My Image" />
-      
-</header>
-      <main data-aos="zoom-out" data-aos-easing="ease-out-cubic" data-aos-duration="1000"  data-aos-delay="0" className={`${styles.main} ${inter.className}`}>
+        <Image src={the_image} alt="My Image" />
+      </header>
+      <main data-aos="zoom-out" data-aos-easing="ease-out-cubic" data-aos-duration="1000" data-aos-delay="0" className={`${styles.main} ${inter.className}`}>
         <div className={styles.app}>
           <header>
-            <h1   className={`${styles["title-header"]}`}>Convert image to Editable Text</h1>
+            <h1 className={`${styles["title-header"]}`}>Convert image to Editable Text</h1>
           </header>
           <section className={`${styles["upload-file"]} ${styles["flex-between"]}`}>
             <input
@@ -130,12 +119,12 @@ export default function Home() {
               type="file"
               className={styles.file}
               onChange={handleFileChange}
-            />  
-            <button onClick={handleConvertText} className= {styles.button}>Convert Text</button>
-            <button onClick={handleRotateImage} className= {styles.button} >Rotate</button>
+            />
+            <button onClick={handleConvertText} className={styles.button}>Convert Text</button>
+            <button onClick={handleRotateImage} className={styles.button}>Rotate</button>
           </section>
           <section className={`${styles.result} ${styles["flex-between"]}`}>
-          {imgUrl && <img src={imgUrl} alt="" id="img-result" ref={imgRef} style={{maxWidth: '100%', maxHeight: '100%'}} />}
+            {imgUrl && <img src={imgUrl} alt="" id="img-result" ref={imgRef} style={{ maxWidth: '100%', maxHeight: '100%' }} />}
             <div className={styles["converted-text-container"]}>
               <textarea
                 id="converted-text"
@@ -146,9 +135,7 @@ export default function Home() {
             </div>
           </section>
         </div>
-        <h2 className={styles["AI-resullts"]} >Result 0% AI Generated</h2>
-        
-
+        <h2 className={styles["AI-resullts"]}>Result 0% AI Generated</h2>
       </main>
     </>
   );
