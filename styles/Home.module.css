@@ -124,7 +124,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem;
+  padding: 5rem;
   min-height: 100vh;
 }
 
@@ -134,5 +134,5 @@
   margin-top: 1rem;
 }
 .title-header {
-  padding-bottom: 10px;
+  padding-bottom: 4rem;
 }

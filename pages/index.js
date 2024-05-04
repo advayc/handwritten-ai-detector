@@ -14,7 +14,6 @@ export default function Home() {
     AOS.init();
   }, []);
 
-
   const [imgUrl, setImgUrl] = useState("");
   const [convertedText, setConvertedText] = useState("");
   const imgRef = useRef(null);
@@ -98,7 +97,8 @@ export default function Home() {
             />
             <input
               type="file"
-              className={styles.button}
+              className={styles.file}
+              onChange={handleFileChange}
             />  
             <button onClick={handleConvertText} className= {styles.button}>Convert Text</button>
             <button onClick={handleRotateImage} className= {styles.button} >Rotate</button>
