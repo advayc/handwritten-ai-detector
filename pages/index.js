@@ -49,11 +49,9 @@ export default function Home() {
   const rotateImage = (img, angle) => {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-    const { width, height } = img;
-
+    const { width, height } = img
     canvas.width = height;
     canvas.height = width;
-
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.rotate((angle * Math.PI) / 180);
     ctx.drawImage(img, -width / 2, -height / 2);
@@ -64,7 +62,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Convert Image To Text Using JS</title>
+        <title>ai detector</title>
         <meta
           name="description"
           content="Convert image to editable text using JavaScript"
